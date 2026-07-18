@@ -3,7 +3,7 @@ terraform {
     organization = "yumenomatayume"
 
     workspaces {
-      name = "terraform-cloud-google"
+      name = "gcp"
     }
   }
 
