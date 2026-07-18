@@ -4,7 +4,7 @@
 
 Terraform repo managing GCP infrastructure (GCE, firewall, GCS) via Terraform Cloud.
 Flat structure — no modules, no local workspaces, no subdirectories.
-Uses a Terraform Cloud remote workspace (`terraform-cloud-google`).
+Uses a Terraform Cloud remote workspace (`gcp`).
 
 ## Key Versions
 

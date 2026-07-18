@@ -1,6 +1,6 @@
-# terraform-cloud-google
+# gcp
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/64d72fc30d204a5bb079f2a6eed57df4)](https://www.codacy.com/manual/ymmmtym/terraform-cloud-google?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ymmmtym/terraform-cloud-google&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/64d72fc30d204a5bb079f2a6eed57df4)](https://www.codacy.com/manual/ymmmtym/gcp?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ymmmtym/gcp&amp;utm_campaign=Badge_Grade)
 
 ## Usage
 
