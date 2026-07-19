@@ -24,6 +24,11 @@ module "terraform_cloud" {
 # Compute
 #
 
+data "google_compute_zones" "available" {
+  region = var.region
+  status = "UP"
+}
+
 resource "google_compute_firewall" "allow-http" {
   name    = "default-allow-http"
   network = "default"
@@ -62,19 +67,21 @@ resource "google_compute_firewall" "allow-dns" {
 }
 
 resource "google_compute_address" "default" {
-  name = "global-ip"
+  name         = "regional-ip"
+  region       = var.region
+  address_type = "EXTERNAL"
 }
 
-resource "google_compute_instance" "default" {
-  name         = "centos01"
+resource "google_compute_instance" "default-01" {
+  name         = "default-01"
   machine_type = "e2-micro"
-  zone         = "us-west1-b"
+  zone         = data.google_compute_zones.available.names[0]
 
   tags = ["http-server", "https-server", "dns-server"]
 
   boot_disk {
     initialize_params {
-      image = "centos-cloud/centos-7"
+      image = "cos-cloud/cos-129-19506-299-20"
       size  = "30"
       type  = "pd-standard"
     }
@@ -92,15 +99,6 @@ resource "google_compute_instance" "default" {
     managed-by = "terraform"
   }
 
-  metadata_startup_script = <<EOT
-    sudo dd if=/dev/zero of=/swapfile bs=1M count=1024
-    sudo chmod 600 /swapfile
-    sudo mkswap /swapfile
-    sudo swapon /swapfile
-    sudo sed -i '$ a /swapfile                                 swap                    swap    defaults        0 0' /etc/fstab
-    EOT
-
-
   service_account {
     scopes = ["userinfo-email", "compute-ro", "storage-ro"]
   }
@@ -111,7 +109,7 @@ resource "google_compute_instance" "default" {
 # Storage
 #
 
-resource "google_storage_bucket" "yumenomatayume_default_bucket" {
+resource "google_storage_bucket" "yumenomatayume" {
   name          = "yumenomatayume"
   location      = "US-CENTRAL1"
   force_destroy = false
