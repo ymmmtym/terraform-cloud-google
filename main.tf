@@ -111,7 +111,7 @@ resource "google_compute_instance" "default" {
 # Storage
 #
 
-resource "google_storage_bucket" "yumenomatayume_default_bucket" {
+resource "google_storage_bucket" "yumenomatayume" {
   name          = "yumenomatayume"
   location      = "US-CENTRAL1"
   force_destroy = false
