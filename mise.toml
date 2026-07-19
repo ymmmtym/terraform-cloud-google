@@ -1,3 +1,5 @@
 [tools]
 gcloud = "latest"
 terraform = "latest"
+tflint = "latest"
+tfsec = "latest"
