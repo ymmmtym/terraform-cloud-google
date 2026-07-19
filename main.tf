@@ -29,6 +29,11 @@ data "google_compute_zones" "available" {
   status = "UP"
 }
 
+data "google_compute_image" "ubuntu" {
+  family  = "ubuntu-minimal-2604-lts-amd64"
+  project = "ubuntu-os-cloud"
+}
+
 resource "google_compute_project_metadata" "default" {
   metadata = {
     ssh-keys = <<-EOT
@@ -37,59 +42,22 @@ resource "google_compute_project_metadata" "default" {
   }
 }
 
-resource "google_compute_firewall" "allow-http" {
-  name    = "default-allow-http"
-  network = "default"
-  allow {
-    protocol = "tcp"
-    ports    = ["80"]
-  }
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["http-server"]
-}
-
-resource "google_compute_firewall" "allow-https" {
-  name    = "default-allow-https"
-  network = "default"
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["https-server"]
-}
-
-resource "google_compute_firewall" "allow-dns" {
-  name    = "default-allow-dns"
-  network = "default"
-  allow {
-    protocol = "tcp"
-    ports    = ["53"]
-  }
-  allow {
-    protocol = "udp"
-    ports    = ["53"]
-  }
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["dns-server"]
-}
-
 resource "google_compute_address" "default" {
   name         = "regional-ip"
   region       = var.region
   address_type = "EXTERNAL"
 }
 
-resource "google_compute_instance" "default-01" {
-  name         = "default-01"
+resource "google_compute_instance" "bastion-01" {
+  name         = "bastion-01"
   machine_type = "e2-micro"
   zone         = data.google_compute_zones.available.names[0]
 
-  tags = ["http-server", "https-server", "dns-server"]
+  tags = ["terraform"]
 
   boot_disk {
     initialize_params {
-      image = "cos-cloud/cos-129-19506-299-20"
+      image = data.google_compute_image.ubuntu.self_link
       size  = "30"
       type  = "pd-standard"
     }
@@ -101,10 +69,6 @@ resource "google_compute_instance" "default-01" {
     access_config {
       nat_ip = google_compute_address.default.address
     }
-  }
-
-  metadata = {
-    managed-by = "terraform"
   }
 
   service_account {
