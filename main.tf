@@ -112,8 +112,8 @@ resource "google_compute_instance" "default" {
 #
 
 resource "google_storage_bucket" "yumenomatayume_default_bucket" {
-  name          = "yumenomatayume_default_bucket"
-  location      = "US-WEST1"
+  name          = "yumenomatayume"
+  location      = "US-CENTRAL1"
   force_destroy = false
   storage_class = "STANDARD"
 
