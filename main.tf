@@ -34,10 +34,10 @@ data "google_compute_image" "ubuntu" {
   project = "ubuntu-os-cloud"
 }
 
-resource "google_compute_project_metadata" "default" {
+resource "google_compute_project_metadata" "ubuntu" {
   metadata = {
     ssh-keys = <<-EOT
-      admin:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDurwFQUS2PWIFyWExXL8WiR8PcELCiuB+6ZT4Cgv3rTokBdFoUUt+FuKuETGBBvlhG85teU8b2RyQyzd9nX0LsZ2oPZE0oB1qJkrljwE0QxXj9lNMUqLIGs9pTbPhguFQmlnx+mJ4fMacZc9DDu2uBWOwYGvHgdBf8fbZCDSSHNHC5XKoaSzRZwPGUMr1f7DKinWSQKb9s2Dkasw4GkxAieYL5sbE1/KIb/7nzxv0w6aqwER9SFqqj10otnn5ZVeCu7zpyoITMKAi4126gRKjqVDKai/9zokrCXKCIevSSf3dlQmpvlQXhT7x584zy1ucy83A+ziAYaZOP3v+8m0v9 admin
+      ubuntu:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDurwFQUS2PWIFyWExXL8WiR8PcELCiuB+6ZT4Cgv3rTokBdFoUUt+FuKuETGBBvlhG85teU8b2RyQyzd9nX0LsZ2oPZE0oB1qJkrljwE0QxXj9lNMUqLIGs9pTbPhguFQmlnx+mJ4fMacZc9DDu2uBWOwYGvHgdBf8fbZCDSSHNHC5XKoaSzRZwPGUMr1f7DKinWSQKb9s2Dkasw4GkxAieYL5sbE1/KIb/7nzxv0w6aqwER9SFqqj10otnn5ZVeCu7zpyoITMKAi4126gRKjqVDKai/9zokrCXKCIevSSf3dlQmpvlQXhT7x584zy1ucy83A+ziAYaZOP3v+8m0v9 ubuntu
     EOT
   }
 }
